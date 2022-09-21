@@ -6,10 +6,16 @@ export type ImageDocument = Image & Document;
 @Schema()
 export class Image {
   @Prop({ required: true })
-  url: string;
+  name: string;
 
   @Prop({ required: true })
   description: string;
+
+  @Prop({ required: true })
+  img: {
+    data: Buffer;
+    contentType: string;
+  };
 }
 
 export const ImageSchema = SchemaFactory.createForClass(Image);
