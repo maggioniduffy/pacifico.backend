@@ -23,7 +23,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         useUnifiedTopology: true,
       }),
     }),
-    //ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],

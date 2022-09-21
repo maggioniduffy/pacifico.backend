@@ -4,16 +4,23 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
   Logger,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { SearchNewsDto } from '../dto/SearchNewsDto.dto';
 import { New } from '../schemas/new.schema';
 import { CreateNewDto } from '../dto/CreateNewDto.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 @Controller('news')
 export class NewsController {
@@ -42,9 +49,21 @@ export class NewsController {
   }
 
   @Post()
-  addNew(@Body() addNewDto: CreateNewDto): Promise<New> {
+  @UseInterceptors(FileInterceptor('file'))
+  addNew(
+    @Body() addNewDto: CreateNewDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          //new MaxFileSizeValidator({ maxSize: 100000 }),
+          new FileTypeValidator({ fileType: 'jpeg' }),
+        ],
+      }),
+    )
+    file: Express,
+  ): Promise<New> {
     this.logger.verbose(`Creating new. Data "${JSON.stringify(addNewDto)}"`);
-    return this.newsService.addNew(addNewDto);
+    return this.newsService.addNew(addNewDto, file);
   }
 
   @Patch('/:id')

@@ -5,13 +5,14 @@ import { CreateNewDto } from '../dto/CreateNewDto.dto';
 import { EditNewDto } from '../dto/EditNewDto.dto';
 import { SearchNewsDto } from '../dto/SearchNewsDto.dto';
 import { New, NewDocument } from '../schemas/new.schema';
+import { Express } from 'express';
 
 @Injectable()
 export class NewsService {
   constructor(@InjectModel(New.name) private newModel: Model<NewDocument>) {}
 
-  async addNew(newDto: CreateNewDto): Promise<New> {
-    const actualNew = { ...newDto, date: Date.now() };
+  async addNew(newDto: CreateNewDto, file: Express): Promise<New> {
+    const actualNew = { ...newDto, date: Date.now(), image: file };
     const createdNew = new this.newModel(actualNew);
     return createdNew.save();
   }

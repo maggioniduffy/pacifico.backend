@@ -1,8 +1,7 @@
-import { Image } from '../schemas/image.schema';
-
 export class CreateNewDto {
   title: string;
-  image: Image;
+  imageName: string;
+  imageDesc: string;
   subtitle: string;
   body: string;
 }

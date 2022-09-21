@@ -11,11 +11,11 @@ export class Image {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ required: true })
-  img: {
-    data: Buffer;
-    contentType: string;
-  };
+  // @Prop({ required: true })
+  // img: {
+  //   data: Buffer;
+  //   contentType: string;
+  // };
 }
 
 export const ImageSchema = SchemaFactory.createForClass(Image);
