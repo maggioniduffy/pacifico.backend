@@ -1,18 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { InjectConnection } from '@nestjs/mongoose';
 import {
   MulterModuleOptions,
   MulterOptionsFactory,
 } from '@nestjs/platform-express';
-//import * as Storage from 'multer-gridfs-storage';
+import { Connection } from 'mongoose';
 import { GridFsStorage } from 'multer-gridfs-storage/lib/gridfs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GridFsMulterConfigService implements MulterOptionsFactory {
   gridFsStorage: GridFsStorage;
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly config: ConfigService,
+    @InjectConnection() private readonly mongooseConnection: Connection,
+  ) {
     this.gridFsStorage = new GridFsStorage({
-      url: configService.get<string>('DB_URI'),
+      url: this.config.get<string>('DB_URI'),
+      db: this.mongooseConnection.db,
     });
   }
 

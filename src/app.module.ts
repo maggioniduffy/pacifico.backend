@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GoogleStrategy } from './google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MulterConfigModule } from './multer-config/multer-config.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
     }),
     ConfigModule.forRoot({ isGlobal: true }),
+    MulterConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],

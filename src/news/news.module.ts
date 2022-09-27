@@ -5,7 +5,7 @@ import { NewsController } from './controllers/news.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
-import { GridFsMulterConfigService } from 'src/config/multer-config.service';
+import { GridFsMulterConfigService } from 'src/multer-config/services/multer-config.service';
 
 @Module({
   imports: [
