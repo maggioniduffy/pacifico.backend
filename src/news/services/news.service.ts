@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateNewDto } from '../dto/CreateNewDto.dto';
-import { EditNewDto } from '../dto/EditNewDto.dto';
-import { SearchNewsDto } from '../dto/SearchNewsDto.dto';
+import { CreateNewDto } from '../dto/createNew.dto';
+import { EditNewDto } from '../dto/editNew.dto';
+import { SearchNewsDto } from '../dto/searchNews.dto';
 import { New, NewDocument } from '../schemas/new.schema';
 import { Express } from 'express';
 

@@ -8,6 +8,7 @@ import { GoogleStrategy } from './google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterConfigModule } from './multer-config/multer-config.module';
 import { FilesModule } from './files/files.module';
+import { MatchModule } from './match/match.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { FilesModule } from './files/files.module';
     ConfigModule.forRoot({ isGlobal: true }),
     MulterConfigModule,
     FilesModule,
+    MatchModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],

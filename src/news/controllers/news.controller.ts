@@ -1,4 +1,4 @@
-import { EditNewDto } from './../dto/EditNewDto.dto';
+import { EditNewDto } from '../dto/editNew.dto';
 import { NewsService } from './../services/news.service';
 import {
   Body,
@@ -7,7 +7,6 @@ import {
   FileTypeValidator,
   Get,
   Logger,
-  MaxFileSizeValidator,
   Param,
   ParseFilePipe,
   Patch,
@@ -16,9 +15,9 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { SearchNewsDto } from '../dto/SearchNewsDto.dto';
+import { SearchNewsDto } from '../dto/searchNews.dto';
 import { New } from '../schemas/new.schema';
-import { CreateNewDto } from '../dto/CreateNewDto.dto';
+import { CreateNewDto } from '../dto/createNew.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 
