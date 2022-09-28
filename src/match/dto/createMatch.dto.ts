@@ -1,15 +1,34 @@
-import { Category } from '../models/category.type';
-import { Gender } from '../models/gender.type';
+import { Category } from '../models/category.enum';
+import { Gender } from '../models/gender.enum';
+import { IsNotEmpty, IsEnum, IsDateString } from 'class-validator';
 
 export class CreateMatchDto {
-  rival: string;
+  @IsNotEmpty()
+  rival_name: string;
+
+  @IsNotEmpty()
   field: string;
-  time: Date;
+
+  @IsNotEmpty()
+  @IsDateString()
+  time: string;
+
+  @IsNotEmpty()
+  @IsEnum(Gender, {
+    message: 'Gender should be F or M',
+  })
   gender: Gender;
-  categorie: Category;
+
+  @IsNotEmpty()
+  @IsEnum(Category, {
+    message: 'Category should be U13, U15, U17, U19 or 1ra',
+  })
+  category: Category;
+
+  @IsNotEmpty()
+  played: boolean;
   stats_link?: string;
   transmission_link?: string;
   our_score?: number;
   rival_score?: number;
-  played: boolean;
 }

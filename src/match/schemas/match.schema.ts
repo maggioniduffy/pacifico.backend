@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Express } from 'express';
-import { Gender } from '../models/gender.type';
-import { Category } from '../models/category.type';
+import { Gender } from '../models/gender.enum';
+import { Category } from '../models/category.enum';
 
 export type MatchDocument = Match & Document;
 

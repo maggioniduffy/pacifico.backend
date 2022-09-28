@@ -6,6 +6,7 @@ import {
   FileTypeValidator,
   Get,
   MaxFileSizeValidator,
+  Optional,
   Param,
   ParseFilePipe,
   Patch,
@@ -21,7 +22,7 @@ import { SearchMatchesDto } from '../dto/searchMatches.dto';
 import { CreateMatchDto } from '../dto/createMatch.dto';
 import { EditMatchDto } from '../dto/editMatch.dto';
 
-@Controller('matchs')
+@Controller('matches')
 export class MatchController {
   constructor(private matchService: MatchService) {}
 
