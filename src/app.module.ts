@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { GoogleStrategy } from './google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterConfigModule } from './multer-config/multer-config.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MulterConfigModule } from './multer-config/multer-config.module';
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     MulterConfigModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],
