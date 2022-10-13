@@ -1,6 +1,7 @@
 import { Category } from '../models/category.enum';
 import { Gender } from '../models/gender.enum';
 import { IsNotEmpty, IsEnum, IsDateString } from 'class-validator';
+import { Condition } from '../models/condition.enum';
 
 export class CreateMatchDto {
   @IsNotEmpty()
@@ -12,6 +13,10 @@ export class CreateMatchDto {
   @IsNotEmpty()
   @IsDateString()
   time: string;
+
+  @IsNotEmpty()
+  @IsEnum(Condition)
+  condition: Condition;
 
   @IsNotEmpty()
   @IsEnum(Gender, {

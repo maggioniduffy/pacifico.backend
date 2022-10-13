@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 import { Express } from 'express';
 import { Gender } from '../models/gender.enum';
 import { Category } from '../models/category.enum';
+import { Condition } from '../models/condition.enum';
 
 export type MatchDocument = Match & Document;
 
@@ -22,6 +23,9 @@ export class Match {
 
   @Prop({ required: true })
   time: Date;
+
+  @Prop({ required: true })
+  condition: Condition;
 
   @Prop({ required: true, default: false })
   played: boolean;
