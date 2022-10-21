@@ -30,14 +30,21 @@ import { EmailModule } from './email/email.module';
       }),
     }),
     MailerModule.forRootAsync({
-      useFactory: (config: ConfigService) => ({
-        transport: config.get<string>('EMAIL_TRANSPORT'),
+      useFactory: () => ({
+        transport: {
+          host: 'smtp.gmail.com',
+          port: Number(process.env.EMAIL_PORT),
+          auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        },
         defaults: {
           from: '"nest-modules" <modules@nestjs.com>',
         },
         template: {
           dir: __dirname + '/templates',
-          adapter: new PugAdapter(),
+          adapter: new PugAdapter(), // or new PugAdapter()
           options: {
             strict: true,
           },
