@@ -1,3 +1,4 @@
+import { S3Service } from './../../aws/services/s3.service';
 import { FilesService } from './../../files/services/files.service';
 import { Match, MatchDocument } from './../schemas/match.schema';
 import { Inject, Injectable, Logger } from '@nestjs/common';
@@ -17,9 +18,12 @@ export class MatchService {
     @InjectModel(Match.name) private matchModel: Model<MatchDocument>,
     @Inject(FilesService)
     private readonly filesService: FilesService,
+    @Inject(S3Service)
+    private readonly s3Service: S3Service,
   ) {}
 
   async addMatch(matchDto: CreateMatchDto, rivalIcon?: Express) {
+    const this.s3Service.uploadFile(rivalIcon);
     const actualMatch = rivalIcon
       ? { ...matchDto, rival_icon: rivalIcon }
       : matchDto;

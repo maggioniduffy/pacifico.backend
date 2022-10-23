@@ -31,12 +31,15 @@ export class MatchController {
   @Get()
   async getMatchs(@Query() filterDto: SearchMatchesDto) {
     this.logger.verbose('Retrieving matches, Filters: ', filterDto);
+    let res = [];
     try {
-      const res = await this.matchService.getMatches(filterDto);
-      this.logger.verbose('Matchs res: ', res);
+      res = await this.matchService.getMatches(filterDto);
       return res;
     } catch (error) {
       this.logger.error(error);
+    } finally {
+      this.logger.verbose('Matchs res: ', res);
+      return res;
     }
   }
 
