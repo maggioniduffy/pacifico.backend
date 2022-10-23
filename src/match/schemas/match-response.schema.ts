@@ -1,14 +1,13 @@
-import { RivalIcon } from '../models/rival_icon';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Gender } from '../models/gender.enum';
 import { Category } from '../models/category.enum';
 import { Condition } from '../models/condition.enum';
 
-export type MatchDocument = Match & Document;
+export type MatchResponseDocument = MatchResponse & Document;
 
 @Schema()
-export class Match {
+export class MatchResponse {
   @Prop({ required: true })
   gender: Gender;
 
@@ -30,8 +29,8 @@ export class Match {
   @Prop({ required: true, default: false })
   played: boolean;
 
-  @Prop({ type: RivalIcon })
-  rival_icon: RivalIcon;
+  @Prop()
+  rival_icon: string;
 
   @Prop()
   stats_link: string;
@@ -46,4 +45,4 @@ export class Match {
   rival_score: number;
 }
 
-export const MatchSchema = SchemaFactory.createForClass(Match);
+export const MatchResponseSchema = SchemaFactory.createForClass(MatchResponse);

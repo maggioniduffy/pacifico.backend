@@ -1,11 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { NewImage } from '../models/newImage';
 
-export type NewDocument = New & Document;
+export type NewResponseDocument = NewResponse & Document;
 
 @Schema()
-export class New {
+export class NewResponse {
   @Prop({ required: true })
   title: string;
 
@@ -25,10 +24,10 @@ export class New {
   imageDesc: string;
 
   @Prop({ required: true })
-  image: NewImage;
+  image: string;
 
   @Prop({ required: true, default: Date.now() })
   time: Date;
 }
 
-export const NewSchema = SchemaFactory.createForClass(New);
+export const NewResponseSchema = SchemaFactory.createForClass(NewResponse);

@@ -18,6 +18,11 @@ export class FilesService {
     return await this.fileModel.readFileStream(id);
   }
 
+  async downloadFile(id: string) {
+    const res = await this.fileModel.downloadFile(id);
+    return res;
+  }
+
   async findInfo(id: string): Promise<FileInfoVm> {
     const result = await this.fileModel
       .findById(id)

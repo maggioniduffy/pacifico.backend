@@ -1,3 +1,4 @@
+import { FilesModule } from './../files/files.module';
 import { Match, MatchSchema } from './schemas/match.schema';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -14,6 +15,7 @@ import { MatchService } from './services/match.service';
       useClass: GridFsMulterConfigService,
     }),
     MongooseModule.forFeature([{ name: Match.name, schema: MatchSchema }]),
+    FilesModule,
   ],
   controllers: [MatchController],
   providers: [MatchService],

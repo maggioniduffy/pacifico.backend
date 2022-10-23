@@ -1,3 +1,4 @@
+import { NewResponse } from './../schemas/new-response.schema';
 import { EditNewDto } from '../dto/editNew.dto';
 import { NewsService } from './../services/news.service';
 import {
@@ -36,7 +37,7 @@ export class NewsController {
   }
 
   @Get('/:id')
-  getNewById(@Param('id') id: string): Promise<New> {
+  getNewById(@Param('id') id: string): Promise<NewResponse> {
     this.logger.verbose('Getting new by id');
     return this.newsService.getNewById(id);
   }

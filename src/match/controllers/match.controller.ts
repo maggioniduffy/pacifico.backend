@@ -5,8 +5,8 @@ import {
   Delete,
   FileTypeValidator,
   Get,
+  Logger,
   MaxFileSizeValidator,
-  Optional,
   Param,
   ParseFilePipe,
   Patch,
@@ -21,18 +21,27 @@ import { Match } from '../schemas/match.schema';
 import { SearchMatchesDto } from '../dto/searchMatches.dto';
 import { CreateMatchDto } from '../dto/createMatch.dto';
 import { EditMatchDto } from '../dto/editMatch.dto';
+import { MatchResponse } from '../schemas/match-response.schema';
 
 @Controller('matches')
 export class MatchController {
+  private logger = new Logger('Matches');
   constructor(private matchService: MatchService) {}
 
   @Get()
-  getMatchs(@Query() filterDto: SearchMatchesDto): Promise<Match[]> {
-    return this.matchService.getMatches(filterDto);
+  async getMatchs(@Query() filterDto: SearchMatchesDto) {
+    this.logger.verbose('Retrieving matches, Filters: ', filterDto);
+    try {
+      const res = await this.matchService.getMatches(filterDto);
+      this.logger.verbose('Matchs res: ', res);
+      return res;
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 
   @Get('/:id')
-  getMatchById(@Param('id') id: string): Promise<Match> {
+  getMatchById(@Param('id') id: string): Promise<MatchResponse> {
     return this.matchService.getMatchById(id);
   }
 

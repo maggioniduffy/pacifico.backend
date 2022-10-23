@@ -9,6 +9,8 @@ import {
   UploadedFiles,
   HttpException,
   HttpStatus,
+  Logger,
+  Injectable,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FileResponseVm } from '../models/file-response-vm.model';
@@ -16,6 +18,7 @@ import { FilesService } from '../services/files.service';
 
 @Controller('/attachment/files')
 export class FilesController {
+  private logger = new Logger('Files');
   constructor(private filesService: FilesService) {}
   @Post('')
   @UseInterceptors(FilesInterceptor('file'))
@@ -59,6 +62,7 @@ export class FilesController {
 
   @Get(':id')
   async getFile(@Param('id') id: string, @Res() res) {
+    this.logger.verbose('Getting file by id');
     const file = await this.filesService.findInfo(id);
     const filestream = await this.filesService.readStream(id);
     if (!filestream) {
@@ -67,6 +71,7 @@ export class FilesController {
         HttpStatus.EXPECTATION_FAILED,
       );
     }
+    this.logger.verbose('Res: ', filestream);
     res.header('Content-Type', file.contentType);
     return filestream.pipe(res);
   }

@@ -1,3 +1,4 @@
+import { FilesModule } from './../files/files.module';
 import { New, NewSchema } from './schemas/new.schema';
 import { Module } from '@nestjs/common';
 import { NewsService } from './services/news.service';
@@ -14,6 +15,7 @@ import { GridFsMulterConfigService } from 'src/multer-config/services/multer-con
       useClass: GridFsMulterConfigService,
     }),
     MongooseModule.forFeature([{ name: New.name, schema: NewSchema }]),
+    FilesModule,
   ],
   controllers: [NewsController],
   providers: [NewsService],
