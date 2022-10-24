@@ -30,8 +30,8 @@ export class Match {
   @Prop({ required: true, default: false })
   played: boolean;
 
-  @Prop({ type: RivalIcon })
-  rival_icon: RivalIcon;
+  @Prop()
+  rival_icon: string;
 
   @Prop()
   stats_link: string;

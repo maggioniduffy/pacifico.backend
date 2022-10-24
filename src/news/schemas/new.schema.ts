@@ -25,7 +25,7 @@ export class New {
   imageDesc: string;
 
   @Prop({ required: true })
-  image: NewImage;
+  image: string;
 
   @Prop({ required: true, default: Date.now() })
   time: Date;

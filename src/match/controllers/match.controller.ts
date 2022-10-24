@@ -21,7 +21,6 @@ import { Match } from '../schemas/match.schema';
 import { SearchMatchesDto } from '../dto/searchMatches.dto';
 import { CreateMatchDto } from '../dto/createMatch.dto';
 import { EditMatchDto } from '../dto/editMatch.dto';
-import { MatchResponse } from '../schemas/match-response.schema';
 
 @Controller('matches')
 export class MatchController {
@@ -29,7 +28,7 @@ export class MatchController {
   constructor(private matchService: MatchService) {}
 
   @Get()
-  async getMatchs(@Query() filterDto: SearchMatchesDto) {
+  async getMatchs(@Query() filterDto: SearchMatchesDto): Promise<Match[]> {
     this.logger.verbose('Retrieving matches, Filters: ', filterDto);
     let res = [];
     try {
@@ -37,14 +36,11 @@ export class MatchController {
       return res;
     } catch (error) {
       this.logger.error(error);
-    } finally {
-      this.logger.verbose('Matchs res: ', res);
-      return res;
     }
   }
 
   @Get('/:id')
-  getMatchById(@Param('id') id: string): Promise<MatchResponse> {
+  getMatchById(@Param('id') id: string): Promise<Match> {
     return this.matchService.getMatchById(id);
   }
 
