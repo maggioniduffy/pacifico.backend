@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
+import * as sharp from 'sharp';
 
 @Injectable()
 export class S3Service {
@@ -13,9 +14,11 @@ export class S3Service {
 
   async uploadFile(file) {
     const { originalname } = file;
-    this.logger.verbose(this.s3.config);
+    const compressedBuffer = await sharp(file.buffer)
+      .webp({ quality: 50 })
+      .toBuffer();
     return await this.s3_upload(
-      file.buffer,
+      compressedBuffer,
       this.AWS_S3_BUCKET,
       originalname,
       file.mimetype,

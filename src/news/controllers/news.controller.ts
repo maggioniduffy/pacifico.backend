@@ -51,14 +51,7 @@ export class NewsController {
   @UseInterceptors(FileInterceptor('file'))
   addNew(
     @Body() addNewDto: CreateNewDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          //new MaxFileSizeValidator({ maxSize: 100000 }),
-          new FileTypeValidator({ fileType: 'jpeg' }),
-        ],
-      }),
-    )
+    @UploadedFile(new ParseFilePipe())
     file: Express,
   ): Promise<New> {
     this.logger.verbose(`Creating new. Data "${JSON.stringify(addNewDto)}"`);

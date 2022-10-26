@@ -55,10 +55,7 @@ export class MatchController {
     @Body() addMatchDto: CreateMatchDto,
     @UploadedFile(
       new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 100000 }),
-          new FileTypeValidator({ fileType: 'jpeg' }),
-        ],
+        validators: [new MaxFileSizeValidator({ maxSize: 100000 })],
       }),
     )
     file: Express,
