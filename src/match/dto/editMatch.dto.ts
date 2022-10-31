@@ -5,4 +5,5 @@ export class EditMatchDto {
   rival_score?: number;
   stats_link?: string;
   transmission_link: string;
+  tournament?: string;
 }

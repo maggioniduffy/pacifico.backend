@@ -44,6 +44,9 @@ export class Match {
 
   @Prop()
   rival_score: number;
+
+  @Prop()
+  tournament: string;
 }
 
 export const MatchSchema = SchemaFactory.createForClass(Match);

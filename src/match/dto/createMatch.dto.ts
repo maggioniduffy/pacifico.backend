@@ -32,6 +32,10 @@ export class CreateMatchDto {
 
   @IsNotEmpty()
   played: boolean;
+
+  @IsNotEmpty()
+  tournament: string;
+
   stats_link?: string;
   transmission_link?: string;
   our_score?: number;
