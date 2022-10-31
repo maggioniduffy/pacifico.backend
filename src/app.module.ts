@@ -13,6 +13,7 @@ import { MatchModule } from './match/match.module';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { EmailModule } from './email/email.module';
 import { AwsModule } from './aws/aws.module';
+import { YoutubeModule } from './youtube/youtube.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { AwsModule } from './aws/aws.module';
     MatchModule,
     EmailModule,
     AwsModule,
+    YoutubeModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],
