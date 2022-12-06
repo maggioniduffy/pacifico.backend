@@ -1,4 +1,4 @@
-import { SendEmailDto } from './../dtos/sendEmail.dto';
+import { SendContactEmailDto } from '../dtos/sendContactEmail.dto';
 import { EmailService } from './../services/email.service';
 import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
 
@@ -8,10 +8,9 @@ export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
   @Post()
-  public sendEmail(@Body() sendEmailDto: SendEmailDto) {
-    console.log('sending mail');
-    this.logger.verbose('Sending email');
-    return this.emailService.sendEmail(sendEmailDto);
+  public sendContactEmail(@Body() sendContactEmailDto: SendContactEmailDto) {
+    this.logger.verbose('Sending contact email');
+    return this.emailService.sendContactEmail(sendContactEmailDto);
   }
 
   @Get()

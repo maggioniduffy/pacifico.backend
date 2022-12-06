@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsJWT } from 'class-validator';
 
-export class SendEmailDto {
+export class ConfirmEmailDto {
   @IsNotEmpty()
   @IsJWT()
   token: string;
