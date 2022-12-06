@@ -14,6 +14,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { EmailModule } from './email/email.module';
 import { AwsModule } from './aws/aws.module';
 import { YoutubeModule } from './youtube/youtube.module';
+import { NewsletterModule } from './newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { YoutubeModule } from './youtube/youtube.module';
     EmailModule,
     AwsModule,
     YoutubeModule,
+    NewsletterModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],
