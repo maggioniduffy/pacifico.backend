@@ -1,10 +1,11 @@
 import { NewsletterService } from './../services/newsletter.service';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { NewPetitionDto } from '../dtos/newPetition.dto';
 import { ConfirmEmailDto } from '../dtos/confirmEmail.dto';
 
 @Controller('newsletter')
 export class NewsletterController {
+  private logger = new Logger('Newsletter controller');
   constructor(private readonly newsletterService: NewsletterService) {}
 
   @Post('register')
@@ -16,6 +17,7 @@ export class NewsletterController {
 
   @Post('confirm')
   async confirm(@Body() confirmationData: ConfirmEmailDto) {
+    this.logger.verbose('confirming email', confirmationData);
     const email = await this.newsletterService.decodeConfirmationToken(
       confirmationData.token,
     );

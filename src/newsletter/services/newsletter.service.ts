@@ -6,7 +6,7 @@ import {
   PendingEmail,
   PendingEmailDocument,
 } from './../schemas/pendingEmail.schema';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
@@ -16,6 +16,7 @@ import { NewPetitionDto } from '../dtos/newPetition.dto';
 
 @Injectable()
 export class NewsletterService {
+  private logger = new Logger('NewsletterService');
   constructor(
     @InjectModel(PendingEmail.name)
     private pendingModel: Model<PendingEmailDocument>,
@@ -57,12 +58,14 @@ export class NewsletterService {
   }
 
   public async confirmEmail(email: string) {
+    this.logger.verbose('Confirming email', email);
     await this.pendingModel.findOneAndDelete({ email });
     const newSuscription = await this.suscribedModel.create({ email });
     return newSuscription.save();
   }
 
   public async decodeConfirmationToken(token: string) {
+    this.logger.verbose('decoding token', token);
     try {
       const payload = await this.jwtService.verify(token, {
         secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
