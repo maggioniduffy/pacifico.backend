@@ -34,13 +34,19 @@ export class NewsService {
             subtitle: { $regex: search },
           };
       console.log(query);
-      return this.newModel
-        .find(query, { date: 'asc' })
+      const res = await this.newModel
+        .find({query}, { date: 'asc' })
         .skip(skip)
         .limit(limit)
         .exec();
+      console.log(res);
+      return res;
     }
-    return this.newModel.find({ date: 'asc' }).skip(skip).limit(limit).exec();
+    return await this.newModel
+      .find({ date: 'asc' })
+      .skip(skip)
+      .limit(limit)
+      .exec();
   }
 
   async getNewById(id: string): Promise<New> {

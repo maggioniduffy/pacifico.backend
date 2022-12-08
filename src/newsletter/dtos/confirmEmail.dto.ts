@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsJWT } from 'class-validator';
 
 export class ConfirmEmailDto {
-  @IsNotEmpty()
-  @IsJWT()
+  // @IsNotEmpty()
+  // @IsJWT()
   token: string;
 }

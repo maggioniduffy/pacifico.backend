@@ -28,6 +28,12 @@ export class NewsletterService {
   ) {}
 
   public async sendVerificationLink(email: string) {
+    const suscribedEmail = await this.suscribedModel.find({ email });
+    console.log(suscribedEmail);
+    if (suscribedEmail || suscribedEmail.length > 0) {
+      console.log('bad exception');
+      throw new BadRequestException('Email already suscribed');
+    }
     const payload: NewPetitionDto = { email };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
