@@ -13,6 +13,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { EmailService } from 'src/email/services/email.service';
 import { NewPetitionDto } from '../dtos/newPetition.dto';
+import { DiffusionDTO } from '../dtos/diffusion.dto';
 
 @Injectable()
 export class NewsletterService {
@@ -87,5 +88,15 @@ export class NewsletterService {
       }
       throw new BadRequestException('Bad confirmation token');
     }
+  }
+
+  public async sendDiffusion(diffusionPayload: DiffusionDTO) {
+    const emails = await this.suscribedModel.find();
+    const directions = emails.map((e) => e.email);
+    return this.emailService.sendDiffusion({
+      to: directions,
+      subject: diffusionPayload.subject,
+      message: diffusionPayload.message,
+    });
   }
 }

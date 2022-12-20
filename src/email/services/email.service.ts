@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable, Logger } from '@nestjs/common';
 import { SendContactEmailDto } from '../dtos/sendContactEmail.dto';
-import { SendEmailDto } from '../dtos/sendEmail.dto';
+import { SendDiffusionEmailDto, SendEmailDto } from '../dtos/sendEmail.dto';
 
 @Injectable()
 export class EmailService {
@@ -32,6 +32,22 @@ export class EmailService {
   }
 
   public async sendEmail(sendEmailDto: SendEmailDto) {
+    this.logger.verbose(this.configService.get<string>('EMAIL_USERNAME'));
+    try {
+      const res = await this.mailerService.sendMail({
+        from: this.configService.get<string>('EMAIL_USERNAME'),
+        to: sendEmailDto.to,
+        subject: sendEmailDto.subject,
+        html: ` <p> ${sendEmailDto.message} </p>`,
+      });
+      this.logger.verbose(res);
+      return res;
+    } catch (error) {
+      this.logger.error(error);
+    }
+  }
+
+  public async sendDiffusion(sendEmailDto: SendDiffusionEmailDto) {
     this.logger.verbose(this.configService.get<string>('EMAIL_USERNAME'));
     try {
       const res = await this.mailerService.sendMail({
