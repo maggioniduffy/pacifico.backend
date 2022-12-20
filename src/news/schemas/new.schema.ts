@@ -1,16 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { NewImage } from '../models/newImage';
+import { Transform } from 'class-transformer';
+import { Document, ObjectId } from 'mongoose';
 
 export type NewDocument = New & Document;
 
 @Schema()
 export class New {
+  @Transform(({ value }) => value.toString())
+  _id: ObjectId;
+
   @Prop({ required: true })
   title: string;
-
-  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Image', required: true })
-  // image: Image;
 
   @Prop({ required: true })
   subtitle: string;
@@ -31,4 +31,8 @@ export class New {
   time: Date;
 }
 
-export const NewSchema = SchemaFactory.createForClass(New);
+const NewSchema = SchemaFactory.createForClass(New);
+
+NewSchema.index({ title: 'text' });
+
+export { NewSchema };

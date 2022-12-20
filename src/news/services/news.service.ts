@@ -1,7 +1,7 @@
 import { S3Service } from './../../aws/services/s3.service';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { CreateNewDto } from '../dto/createNew.dto';
 import { EditNewDto } from '../dto/editNew.dto';
 import { SearchNewsDto } from '../dto/searchNews.dto';
@@ -27,18 +27,16 @@ export class NewsService {
   async getNews(searchNewsDto: SearchNewsDto): Promise<New[]> {
     const { search, skip = 0, limit = 10 } = searchNewsDto;
     if (search) {
-      const query = !search
-        ? null
-        : {
-            title: { $regex: search },
-            subtitle: { $regex: search },
-          };
-      console.log(query);
-      const res = await this.newModel
-        .find({query}, { date: 'asc' })
+      const filters: FilterQuery<NewDocument> = {};
+      filters.$text = {
+        $search: search,
+      };
+      const query = this.newModel
+        .find(filters)
+        .sort({ _id: 1 })
         .skip(skip)
-        .limit(limit)
-        .exec();
+        .limit(limit);
+      const res = await query;
       console.log(res);
       return res;
     }
