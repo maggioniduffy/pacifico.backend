@@ -15,6 +15,7 @@ import { EmailModule } from './email/email.module';
 import { AwsModule } from './aws/aws.module';
 import { YoutubeModule } from './youtube/youtube.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { NewsletterModule } from './newsletter/newsletter.module';
     AwsModule,
     YoutubeModule,
     NewsletterModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],
