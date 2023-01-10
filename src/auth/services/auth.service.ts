@@ -28,13 +28,19 @@ export class AuthService {
     this.logger.verbose('USER: ', user.username, user._id);
     const payload = { username: user.username, sub: user.userId };
     this.logger.verbose('Payload:', payload);
-    return {
+    const token = {
       access_token: this.jwtService.sign(payload, {
         secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
         expiresIn: `${this.configService.get(
           'JWT_VERIFICATION_TOKEN_EXPIRATION_TIME',
         )}s`,
       }),
+    };
+    return {
+      token: token.access_token,
+      expiresIn: `${this.configService.get(
+        'JWT_VERIFICATION_TOKEN_EXPIRATION_TIME',
+      )}`,
     };
   }
 }
