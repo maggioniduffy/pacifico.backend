@@ -5,7 +5,6 @@ import { AppService } from './app.service';
 import { NewsModule } from './news/news.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { GoogleStrategy } from './google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterConfigModule } from './multer-config/multer-config.module';
 import { FilesModule } from './files/files.module';
@@ -16,6 +15,8 @@ import { AwsModule } from './aws/aws.module';
 import { YoutubeModule } from './youtube/youtube.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { UsersModule } from './users/users.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -66,6 +67,12 @@ import { UsersModule } from './users/users.module';
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, GoogleStrategy],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}

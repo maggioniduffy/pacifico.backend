@@ -3,12 +3,14 @@ import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { NewPetitionDto } from '../dtos/newPetition.dto';
 import { ConfirmEmailDto } from '../dtos/confirmEmail.dto';
 import { DiffusionDTO } from '../dtos/diffusion.dto';
+import { Public } from 'src/public.decorator';
 
 @Controller('newsletter')
 export class NewsletterController {
   private logger = new Logger('Newsletter controller');
   constructor(private readonly newsletterService: NewsletterService) {}
 
+  @Public()
   @Post('register')
   async register(@Body() registrationData: NewPetitionDto) {
     this.logger.verbose('registering email', registrationData.email);
@@ -17,6 +19,7 @@ export class NewsletterController {
     );
   }
 
+  @Public()
   @Post('confirm')
   async confirm(@Body() confirmationData: ConfirmEmailDto) {
     this.logger.verbose('confirming email', confirmationData);

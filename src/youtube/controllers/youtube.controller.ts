@@ -12,12 +12,14 @@ import {
   Query,
 } from '@nestjs/common';
 import { YoutubeService } from '../services/youtube.service';
+import { Public } from 'src/public.decorator';
 
 @Controller('youtube')
 export class YoutubeController {
   private logger = new Logger('YoutubeController');
   constructor(private youtubeService: YoutubeService) {}
 
+  @Public()
   @Get()
   getYoutubeElems(
     @Query() filterDto: SearchYoutubeElementsDto,

@@ -21,12 +21,14 @@ import { Match } from '../schemas/match.schema';
 import { SearchMatchesDto } from '../dto/searchMatches.dto';
 import { CreateMatchDto } from '../dto/createMatch.dto';
 import { EditMatchDto } from '../dto/editMatch.dto';
+import { Public } from 'src/public.decorator';
 
 @Controller('matches')
 export class MatchController {
   private logger = new Logger('Matches');
   constructor(private matchService: MatchService) {}
 
+  @Public()
   @Get()
   async getMatchs(@Query() filterDto: SearchMatchesDto): Promise<Match[]> {
     this.logger.verbose('Retrieving matches, Filters: ', filterDto);

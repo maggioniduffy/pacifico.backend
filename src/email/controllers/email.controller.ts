@@ -12,10 +12,4 @@ export class EmailController {
     this.logger.verbose('Sending contact email');
     return this.emailService.sendContactEmail(sendContactEmailDto);
   }
-
-  @Get()
-  public ping() {
-    this.logger.verbose('Ping');
-    return 'Ping';
-  }
 }

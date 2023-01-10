@@ -20,12 +20,14 @@ import { New } from '../schemas/new.schema';
 import { CreateNewDto } from '../dto/createNew.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
+import { Public } from 'src/public.decorator';
 
 @Controller('news')
 export class NewsController {
   private logger = new Logger('NewsController');
   constructor(private newsService: NewsService) {}
 
+  @Public()
   @Get()
   getNews(@Query() filterDto: SearchNewsDto): Promise<New[]> {
     this.logger.verbose(
