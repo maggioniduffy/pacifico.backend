@@ -25,6 +25,7 @@ export class AuthService {
   }
 
   async login(user: any) {
+    this.logger.verbose('USER: ', user.username, user._id);
     const payload = { username: user.username, sub: user.userId };
     this.logger.verbose('Payload:', payload);
     return {

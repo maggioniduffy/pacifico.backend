@@ -13,6 +13,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { Public } from 'src/public.decorator';
 import { FileResponseVm } from '../models/file-response-vm.model';
 import { FilesService } from '../services/files.service';
 
@@ -44,6 +45,7 @@ export class FilesController {
     return response;
   }
 
+  @Public()
   @Get('info/:id')
   async getFileInfo(@Param('id') id: string): Promise<FileResponseVm> {
     const file = await this.filesService.findInfo(id);
@@ -60,6 +62,7 @@ export class FilesController {
     };
   }
 
+  @Public()
   @Get(':id')
   async getFile(@Param('id') id: string, @Res() res) {
     this.logger.verbose('Getting file by id');
@@ -76,6 +79,7 @@ export class FilesController {
     return filestream.pipe(res);
   }
 
+  @Public()
   @Get('download/:id')
   async downloadFile(@Param('id') id: string, @Res() res) {
     const file = await this.filesService.findInfo(id);

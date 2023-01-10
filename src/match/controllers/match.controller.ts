@@ -41,6 +41,7 @@ export class MatchController {
     }
   }
 
+  @Public()
   @Get('/:id')
   getMatchById(@Param('id') id: string): Promise<Match> {
     return this.matchService.getMatchById(id);

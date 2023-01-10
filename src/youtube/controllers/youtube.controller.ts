@@ -31,6 +31,7 @@ export class YoutubeController {
     return this.youtubeService.getToutubeElements(filterDto);
   }
 
+  @Public()
   @Get('/:id')
   getYoutubeElemById(@Param('id') id: string): Promise<YoutubeElement> {
     this.logger.verbose('Getting youtube element by id');
