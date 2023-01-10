@@ -16,7 +16,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { SearchNewsDto } from '../dto/searchNews.dto';
-import { New } from '../schemas/new.schema';
+import { New, PlainNew } from '../schemas/new.schema';
 import { CreateNewDto } from '../dto/createNew.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
@@ -29,7 +29,7 @@ export class NewsController {
 
   @Public()
   @Get()
-  getNews(@Query() filterDto: SearchNewsDto): Promise<New[]> {
+  getNews(@Query() filterDto: SearchNewsDto): Promise<PlainNew[]> {
     this.logger.verbose(
       `Retrieving news. Filters "${JSON.stringify(filterDto)}"`,
     );
@@ -37,10 +37,13 @@ export class NewsController {
     return this.newsService.getNews(filterDto);
   }
 
+  @Public()
   @Get('/:id')
-  getNewById(@Param('id') id: string): Promise<New> {
+  getNewById(@Param('id') id: string): Promise<PlainNew> {
     this.logger.verbose('Getting new by id');
-    return this.newsService.getNewById(id);
+    const n = this.newsService.getNewById(id);
+    this.logger.verbose('n: ', n);
+    return n;
   }
 
   @Delete('/:id')

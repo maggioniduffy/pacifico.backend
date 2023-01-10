@@ -31,6 +31,17 @@ export class New {
   time: Date;
 }
 
+export interface PlainNew {
+  _id: string;
+  title: string;
+  subtitle: string;
+  body: string;
+  imageName: string;
+  imageDesc: string;
+  image: string;
+  time: Date;
+}
+
 const NewSchema = SchemaFactory.createForClass(New);
 
 NewSchema.index({ title: 'text' });

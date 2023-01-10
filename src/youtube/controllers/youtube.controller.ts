@@ -28,7 +28,7 @@ export class YoutubeController {
       `Retrieving youtube elems. Filters "${JSON.stringify(filterDto)}"`,
     );
 
-    return this.youtubeService.getToutubeElements(filterDto);
+    return this.youtubeService.getYoutubeElements(filterDto);
   }
 
   @Public()

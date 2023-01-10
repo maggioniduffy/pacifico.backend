@@ -31,7 +31,7 @@ export class YoutubeService {
     return doc;
   }
 
-  async getToutubeElements(
+  async getYoutubeElements(
     searchYoutubeElementsDto: SearchYoutubeElementsDto,
   ): Promise<YoutubeElement[]> {
     const { search, skip = 0, limit = 10 } = searchYoutubeElementsDto;
@@ -48,10 +48,12 @@ export class YoutubeService {
         .limit(limit)
         .exec();
     }
-    return this.youtubeModel
+    const res = await this.youtubeModel
       .find({ date: 'asc' })
       .skip(skip)
       .limit(limit)
       .exec();
+    this.logger.verbose('YOUTUBE RES: ', res);
+    return res;
   }
 }
