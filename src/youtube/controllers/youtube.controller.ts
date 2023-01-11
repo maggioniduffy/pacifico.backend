@@ -40,7 +40,7 @@ export class YoutubeController {
 
   @Delete('/:id')
   deleteYoutubeElem(@Param('id') id: string): Promise<YoutubeElement> {
-    this.logger.verbose('Deletting youtube element by id');
+    this.logger.verbose('Deletting youtube element by id', id);
     return this.youtubeService.deleteYoutubeElement(id);
   }
 
