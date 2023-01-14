@@ -51,6 +51,7 @@ export class MatchService {
     const doc = await this.matchModel.findByIdAndUpdate({ _id: id }, editDto, {
       new: true,
     });
+    this.logger.verbose(doc);
     return doc;
   }
 

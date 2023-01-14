@@ -68,6 +68,8 @@ export class MatchController {
 
   @Patch('/:id')
   updateNew(@Param('id') id: string, @Body() updateMatchDto: EditMatchDto) {
+    this.logger.verbose('id: ', id);
+    this.logger.verbose('update dto', updateMatchDto);
     return this.matchService.updateMatch(id, updateMatchDto);
   }
 }
