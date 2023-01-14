@@ -34,7 +34,8 @@ export class MatchService {
   async getMatches(searchMatchsDto: SearchMatchesDto): Promise<Match[]> {
     const { skip = 0, limit = 10 } = searchMatchsDto;
     const docs = await this.matchModel
-      .find({ date: 'asc' })
+      .find({})
+      .sort({ time: -1 })
       .skip(skip)
       .limit(limit)
       .exec();

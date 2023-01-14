@@ -1,4 +1,3 @@
-import { RivalIcon } from '../models/rival_icon';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Gender } from '../models/gender.enum';
@@ -33,17 +32,17 @@ export class Match {
   @Prop()
   rival_icon: string;
 
-  @Prop()
+  @Prop({ required: false })
   stats_link: string;
 
-  @Prop()
+  @Prop({ required: false })
   transmission_link: string;
 
-  @Prop()
-  our_score: number;
+  @Prop({ required: false })
+  our_score: string;
 
-  @Prop()
-  rival_score: number;
+  @Prop({ required: false })
+  rival_score: string;
 
   @Prop()
   tournament: string;

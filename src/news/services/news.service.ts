@@ -41,7 +41,8 @@ export class NewsService {
       return res;
     }
     const res = await this.newModel
-      .find({ date: 'asc' })
+      .find({})
+      .sort({ time: -1 })
       .skip(skip)
       .limit(limit)
       .exec();

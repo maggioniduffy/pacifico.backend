@@ -38,6 +38,6 @@ export class CreateMatchDto {
 
   stats_link?: string;
   transmission_link?: string;
-  our_score?: number;
-  rival_score?: number;
+  our_score?: string;
+  rival_score?: string;
 }
