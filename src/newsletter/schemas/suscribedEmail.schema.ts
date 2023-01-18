@@ -6,7 +6,7 @@ export type SuscribedEmailDocument = SuscribedEmail & Document;
 
 @Schema()
 export class SuscribedEmail {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   @IsEmail()
   email: string;
 }

@@ -1,8 +1,10 @@
+import { LoginDto } from './../dtos/login.dto';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/services/users.service';
 import * as bcrypt from 'bcrypt';
+import { SignupDto } from '../dtos/signup.dto';
 
 @Injectable()
 export class AuthService {
@@ -42,5 +44,11 @@ export class AuthService {
         'JWT_VERIFICATION_TOKEN_EXPIRATION_TIME',
       )}`,
     };
+  }
+
+  async signup(user: SignupDto) {
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(user.password, salt);
+    return await this.usersService.createOne(user.username, user.email, hash);
   }
 }

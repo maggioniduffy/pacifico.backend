@@ -11,4 +11,13 @@ export class UsersService {
   async findOne(username: string): Promise<User | undefined> {
     return this.userModel.findOne({ username });
   }
+
+  async createOne(
+    username: string,
+    email: string,
+    password: string,
+  ): Promise<User | undefined> {
+    const createdUser = new this.userModel({ username, email, password });
+    return createdUser.save();
+  }
 }

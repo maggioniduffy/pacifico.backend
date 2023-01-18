@@ -17,6 +17,9 @@ import { NewsletterModule } from './newsletter/newsletter.module';
 import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { getEnvPath } from './common/helper/env.helper';
+
+const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
 @Module({
   imports: [
@@ -56,7 +59,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
         },
       }),
     }),
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     MulterConfigModule,
     FilesModule,
     MatchModule,

@@ -6,7 +6,7 @@ export type PendingEmailDocument = PendingEmail & Document;
 
 @Schema()
 export class PendingEmail {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   @IsEmail()
   email: string;
 

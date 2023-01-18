@@ -15,4 +15,12 @@ export class AuthController {
     this.logger.verbose('req: ', req);
     return req.user;
   }
+
+  @Public()
+  //@UseGuards(LocalAuthGuard)
+  @Post('signup')
+  async signup(@Request() req) {
+    this.logger.verbose('req: ', req);
+    return req.user;
+  }
 }
