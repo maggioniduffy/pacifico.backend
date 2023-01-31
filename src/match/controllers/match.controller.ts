@@ -56,11 +56,7 @@ export class MatchController {
   @UseInterceptors(FileInterceptor('file'))
   addNew(
     @Body() addMatchDto: CreateMatchDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [new MaxFileSizeValidator({ maxSize: 100000 })],
-      }),
-    )
+    @UploadedFile(new ParseFilePipe())
     file: Express,
   ): Promise<Match> {
     return this.matchService.addMatch(addMatchDto, file);
