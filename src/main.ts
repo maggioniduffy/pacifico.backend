@@ -6,14 +6,14 @@ import * as fs from 'fs';
 
 async function bootstrap() {
   const logger = new Logger();
-  const httpsOptions = {
-    key: fs.readFileSync(
-      '/etc/letsencrypt/live/pacificoapi.online/privkey.pem',
-    ),
-    cert: fs.readFileSync(
-      '/etc/letsencrypt/live/pacificoapi.online/fullchain.pem',
-    ),
-  };
+  // const httpsOptions = {
+  //   key: fs.readFileSync(
+  //     '/etc/letsencrypt/live/pacificoapi.online/privkey.pem',
+  //   ),
+  //   cert: fs.readFileSync(
+  //     '/etc/letsencrypt/live/pacificoapi.online/fullchain.pem',
+  //   ),
+  // };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
